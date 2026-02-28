@@ -1,3 +1,3 @@
 pub mod async_lru;
-mod metrics;
+ mod metrics;
 pub mod multi_type_async_lru;

@@ -1,17 +1,17 @@
 import { TeamSettings } from "components/teamSettings/TeamSettings";
-import { TeamSettingsLayout } from "layouts/TeamSettingsLayout";
-import { withAuthenticatedPage } from "lib/withAuthenticatedPage";
+ import { TeamSettingsLayout } from "layouts/TeamSettingsLayout";
+   import { withAuthenticatedPage } from "lib/withAuthenticatedPage";
 
-export { getServerSideProps } from "lib/ssr";
+       export { getServerSideProps } from "lib/ssr";
 
-function TeamSettingsPage() {
-  return (
-    <TeamSettingsLayout
-      page="general"
-      Component={TeamSettings}
-      title="Team Settings"
-    />
-  );
-}
+         function TeamSettingsPage() {
+         return (
+          <TeamSettingsLayout
+         page="general"
+         Component={TeamSettings}
+        title="Team Settings"
+       />
+     );
+   }
 
 export default withAuthenticatedPage(TeamSettingsPage);

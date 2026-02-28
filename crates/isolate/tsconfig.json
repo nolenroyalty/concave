@@ -1,10 +1,10 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
+ "compilerOptions": {
+   "baseUrl": ".",
     "moduleResolution": "Node",
-    "paths": {
-      "convex/server": ["../../npm-packages/convex/server"]
+     "paths": {
+     "convex/server": ["../../npm-packages/convex/server"]
     },
-    "target": "ESNext"
-  }
+   "target": "ESNext"
+ }
 }

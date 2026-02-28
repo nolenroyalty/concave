@@ -1,11 +1,11 @@
 {
-  "name": "benchmark_insert",
-  "scenarios": [
-    {
+ "name": "benchmark_insert",
+   "scenarios": [
+     {
       "name": "RunFunction",
       "path": "insert:insertMessageWithSearch",
       "fn_type": "mutation",
-      "benchmark": 80
-    }
-  ]
+     "benchmark": 80
+   }
+ ]
 }

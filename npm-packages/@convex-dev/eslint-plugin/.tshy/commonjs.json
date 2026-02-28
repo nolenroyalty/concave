@@ -1,17 +1,17 @@
 {
-  "extends": "./build.json",
-  "include": [
-    "../src/**/*.ts",
-    "../src/**/*.cts",
-    "../src/**/*.tsx",
-    "../src/**/*.json"
-  ],
-  "exclude": [
-    "../src/**/*.test.ts",
-    "../src/**/*.mts",
-    "../src/package.json"
-  ],
-  "compilerOptions": {
-    "outDir": "../.tshy-build/commonjs"
-  }
+ "extends": "./build.json",
+   "include": [
+     "../src/**/*.ts",
+       "../src/**/*.cts",
+        "../src/**/*.tsx",
+         "../src/**/*.json"
+         ],
+          "exclude": [
+         "../src/**/*.test.ts",
+         "../src/**/*.mts",
+        "../src/package.json"
+       ],
+     "compilerOptions": {
+   "outDir": "../.tshy-build/commonjs"
+ }
 }

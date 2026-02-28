@@ -1,33 +1,33 @@
 # vue
 
-This template should help get you started developing with Vue 3 in Vite.
+   This template should help get you started developing with Vue 3 in Vite.
 
-## Recommended IDE Setup
+       ## Recommended IDE Setup
 
-[VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+           [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-## Type Support for `.vue` Imports in TS
+              ## Type Support for `.vue` Imports in TS
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+                TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
-## Customize configuration
+                  ## Customize configuration
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+                   See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
+                    ## Project Setup
 
-```sh
-npm install
-```
+                   ```sh
+                   npm install
+                  ```
 
-### Compile and Hot-Reload for Development
+                ### Compile and Hot-Reload for Development
 
-```sh
-npm run dev
-```
+              ```sh
+            npm run dev
+           ```
 
-### Type-Check, Compile and Minify for Production
+       ### Type-Check, Compile and Minify for Production
 
-```sh
-npm run build
+   ```sh
+ npm run build
 ```

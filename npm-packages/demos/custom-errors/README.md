@@ -1,23 +1,23 @@
 # Custom Errors Example App
 
-This example demonstrates how to use Convex errors from functions and clients.
-clients.
+   This example demonstrates how to use Convex errors from functions and clients.
+     clients.
 
-This app is an extension of the Convex chat tutorial, where we throw custom
-application-level errors if:
+         This app is an extension of the Convex chat tutorial, where we throw custom
+          application-level errors if:
 
-1. we try sending a message over 50 characters in length
-2. we have more than 20 messages to list
+            1. we try sending a message over 50 characters in length
+             2. we have more than 20 messages to list
 
-To learn more about application errors see the
-[Application Errors](https://docs.convex.dev/functions/error-handling/application-errors)
-documentation.
+              To learn more about application errors see the
+             [Application Errors](https://docs.convex.dev/functions/error-handling/application-errors)
+             documentation.
 
-## Running the App
+           ## Running the App
 
-Run:
+         Run:
 
-```
-npm install
-npm run dev
+     ```
+   npm install
+ npm run dev
 ```

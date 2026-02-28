@@ -1,141 +1,141 @@
 import {
-  render,
-  screen,
-  fireEvent,
-  act,
-  getByText,
-  getByRole,
-} from "@testing-library/react";
-import { OrbSubscriptionResponse, TeamResponse } from "generatedApi";
-import { FreePlan } from "./FreePlan";
+ render,
+   screen,
+     fireEvent,
+       act,
+        getByText,
+          getByRole,
+            } from "@testing-library/react";
+              import { OrbSubscriptionResponse, TeamResponse } from "generatedApi";
+                import { FreePlan } from "./FreePlan";
 
-const cancelSubscription = jest.fn();
+                   const cancelSubscription = jest.fn();
 
-jest.mock("api/billing", () => ({
-  useCancelSubscription: () => cancelSubscription,
-}));
+                       jest.mock("api/billing", () => ({
+                        useCancelSubscription: () => cancelSubscription,
+                          }));
 
-const setSupportFormOpen = jest.fn();
-jest.mock("../../../elements/SupportWidget", () => ({
-  useSupportFormOpen: () => [false, setSupportFormOpen],
-}));
+                             const setSupportFormOpen = jest.fn();
+                               jest.mock("../../../elements/SupportWidget", () => ({
+                                 useSupportFormOpen: () => [false, setSupportFormOpen],
+                                  }));
 
-const subscription: OrbSubscriptionResponse = {
-  plan: {
-    id: "",
-    name: "",
-    description: "",
-    status: "active",
-    seatPrice: 0,
-    planType: "",
-  },
-  billingContact: {
-    name: "",
-    email: "",
-  },
-  status: "active",
-  nextBillingPeriodStart: "2025-09-25",
-};
+                                     const subscription: OrbSubscriptionResponse = {
+                                       plan: {
+                                         id: "",
+                                          name: "",
+                                            description: "",
+                                             status: "active",
+                                               seatPrice: 0,
+                                                planType: "",
+                                                 },
+                                                   billingContact: {
+                                                    name: "",
+                                                     email: "",
+                                                       },
+                                                        status: "active",
+                                                         nextBillingPeriodStart: "2025-09-25",
+                                                           };
 
-const team: TeamResponse = {
-  id: 0,
-  name: "",
-  creator: 0,
-  slug: "",
-  suspended: false,
-  referralCode: "CODE123",
-};
+                                                             const team: TeamResponse = {
+                                                              id: 0,
+                                                               name: "",
+                                                                creator: 0,
+                                                                 slug: "",
+                                                                  suspended: false,
+                                                                   referralCode: "CODE123",
+                                                                    };
 
-describe("FreePlan", () => {
-  beforeEach(() => {
-    jest.resetAllMocks();
-  });
+                                                                      describe("FreePlan", () => {
+                                                                       beforeEach(() => {
+                                                                        jest.resetAllMocks();
+                                                                        });
 
-  test("Downgrade plan button should not be visible if there is no subscription", () => {
-    render(
-      <FreePlan subscription={undefined} hasAdminPermissions team={team} />,
-    );
+                                                                          test("Downgrade plan button should not be visible if there is no subscription", () => {
+                                                                          render(
+                                                                           <FreePlan subscription={undefined} hasAdminPermissions team={team} />,
+                                                                            );
 
-    const downgradeButton = screen.queryByText("Downgrade to Free");
-    expect(downgradeButton).not.toBeInTheDocument();
+                                                                             const downgradeButton = screen.queryByText("Downgrade to Free");
+                                                                             expect(downgradeButton).not.toBeInTheDocument();
 
-    screen.getByText("Current Plan");
-  });
+                                                                              screen.getByText("Current Plan");
+                                                                              });
 
-  test("Should be able to downgrade plan", async () => {
-    const hasAdminPermissions = true;
+                                                                               test("Should be able to downgrade plan", async () => {
+                                                                               const hasAdminPermissions = true;
 
-    render(
-      <FreePlan
-        subscription={subscription}
-        hasAdminPermissions={hasAdminPermissions}
-        team={team}
-      />,
-    );
+                                                                               render(
+                                                                               <FreePlan
+                                                                               subscription={subscription}
+                                                                                hasAdminPermissions={hasAdminPermissions}
+                                                                               team={team}
+                                                                               />,
+                                                                               );
 
-    const downgradeButton = screen.getByText("Downgrade to Free");
-    await act(() => {
-      fireEvent.click(downgradeButton);
-    });
+                                                                               const downgradeButton = screen.getByText("Downgrade to Free");
+                                                                               await act(() => {
+                                                                               fireEvent.click(downgradeButton);
+                                                                              });
 
-    const confirmationDialog = screen.getByRole("dialog");
-    expect(confirmationDialog).toBeInTheDocument();
+                                                                             const confirmationDialog = screen.getByRole("dialog");
+                                                                             expect(confirmationDialog).toBeInTheDocument();
 
-    const confirmButton = getByText(confirmationDialog, "Downgrade");
-    expect(confirmButton).toBeDisabled();
+                                                                            const confirmButton = getByText(confirmationDialog, "Downgrade");
+                                                                            expect(confirmButton).toBeDisabled();
 
-    const checkbox = getByRole(confirmationDialog, "checkbox");
+                                                                          const checkbox = getByRole(confirmationDialog, "checkbox");
 
-    await act(() => {
-      checkbox.click();
-    });
+                                                                         await act(() => {
+                                                                        checkbox.click();
+                                                                        });
 
-    expect(confirmButton).toBeEnabled();
+                                                                      expect(confirmButton).toBeEnabled();
 
-    expect(cancelSubscription).toHaveBeenCalledTimes(0);
+                                                                    expect(cancelSubscription).toHaveBeenCalledTimes(0);
 
-    await act(() => {
-      confirmButton.click();
-    });
+                                                                  await act(() => {
+                                                                 confirmButton.click();
+                                                                });
 
-    expect(cancelSubscription).toHaveBeenCalledTimes(1);
-  });
+                                                              expect(cancelSubscription).toHaveBeenCalledTimes(1);
+                                                             });
 
-  test("Should say Current Plan if the plan is already Free", () => {
-    render(<FreePlan hasAdminPermissions team={team} />);
+                                                           test("Should say Current Plan if the plan is already Free", () => {
+                                                         render(<FreePlan hasAdminPermissions team={team} />);
 
-    expect(screen.getByText("Current Plan")).toBeInTheDocument();
-  });
+                                                       expect(screen.getByText("Current Plan")).toBeInTheDocument();
+                                                     });
 
-  test("Should not be able to downgrade plan as non-admin", () => {
-    const hasAdminPermissions = false;
+                                                   test("Should not be able to downgrade plan as non-admin", () => {
+                                                 const hasAdminPermissions = false;
 
-    render(
-      <FreePlan
-        subscription={subscription}
-        hasAdminPermissions={hasAdminPermissions}
-        team={team}
-      />,
-    );
+                                               render(
+                                             <FreePlan
+                                            subscription={subscription}
+                                          hasAdminPermissions={hasAdminPermissions}
+                                         team={team}
+                                       />,
+                                     );
 
-    const downgradeButton = screen.getByText("Downgrade to Free");
-    expect(downgradeButton).toBeDisabled();
-  });
+                                  const downgradeButton = screen.getByText("Downgrade to Free");
+                                 expect(downgradeButton).toBeDisabled();
+                               });
 
-  test("Should not be able to downgrade plan as admin with end date", () => {
-    const hasAdminPermissions = true;
+                            test("Should not be able to downgrade plan as admin with end date", () => {
+                          const hasAdminPermissions = true;
 
-    render(
-      <FreePlan
-        subscription={{ ...subscription, endDate: 0 }}
-        hasAdminPermissions={hasAdminPermissions}
-        team={team}
-      />,
-    );
+                       render(
+                     <FreePlan
+                   subscription={{ ...subscription, endDate: 0 }}
+                 hasAdminPermissions={hasAdminPermissions}
+                team={team}
+              />,
+            );
 
-    const downgradeButton = screen.queryByText("Downgrade to Free");
-    expect(downgradeButton).toBeNull();
+        const downgradeButton = screen.queryByText("Downgrade to Free");
+       expect(downgradeButton).toBeNull();
 
-    screen.getByText("Next Billing Cycle");
-  });
+   screen.getByText("Next Billing Cycle");
+ });
 });

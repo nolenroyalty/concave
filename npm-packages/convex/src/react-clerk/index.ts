@@ -1,6 +1,6 @@
 /**
  * React login component for use with Clerk.
- *
- * @module
+   *
+   * @module
  */
 export { ConvexProviderWithClerk } from "./ConvexProviderWithClerk.js";

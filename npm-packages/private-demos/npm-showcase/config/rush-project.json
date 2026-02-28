@@ -1,9 +1,9 @@
 {
-  "disableBuildCacheForProject": false,
-  "operationSettings": [
+ "disableBuildCacheForProject": false,
+   "operationSettings": [
     {
-      "operationName": "build",
-      "outputFolderNames": ["dist"]
-    }
-  ]
+     "operationName": "build",
+    "outputFolderNames": ["dist"]
+   }
+ ]
 }

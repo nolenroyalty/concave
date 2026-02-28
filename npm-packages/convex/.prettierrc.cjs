@@ -1,4 +1,4 @@
 module.exports = {
-  proseWrap: "always",
-  trailingComma: "all",
+ proseWrap: "always",
+ trailingComma: "all",
 };

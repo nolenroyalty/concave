@@ -1,17 +1,17 @@
 import { httpRouter } from "convex/server";
-import { auth } from "./auth";
-import { httpAction } from "./_generated/server";
+ import { auth } from "./auth";
+   import { httpAction } from "./_generated/server";
 
-const http = httpRouter();
+       const http = httpRouter();
 
-auth.addHttpRoutes(http);
+         auth.addHttpRoutes(http);
 
-http.route({
-  path: "/",
-  method: "GET",
-  handler: httpAction(async (_ctx, _request) => {
-    return new Response(`Hello world!`);
-  }),
-});
+          http.route({
+         path: "/",
+         method: "GET",
+        handler: httpAction(async (_ctx, _request) => {
+       return new Response(`Hello world!`);
+     }),
+   });
 
 export default http;

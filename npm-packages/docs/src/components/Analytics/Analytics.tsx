@@ -1,12 +1,12 @@
 import React from "react";
-import CookieBanner from "./CookieBanner";
-import PostHog from "./PostHog";
+ import CookieBanner from "./CookieBanner";
+   import PostHog from "./PostHog";
 
-export default function Analytics() {
-  return (
-    <>
+      export default function Analytics() {
+      return (
+      <>
       <PostHog />
-      <CookieBanner />
-    </>
-  );
+     <CookieBanner />
+   </>
+ );
 }

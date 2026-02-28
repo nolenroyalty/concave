@@ -1,7 +1,7 @@
 {
-  "functions": {
-    "src/pages/**/*": {
-      "memory": 3008
-    }
-  }
+ "functions": {
+   "src/pages/**/*": {
+   "memory": 3008
+   }
+ }
 }

@@ -1,3 +1,3 @@
 export default async function defaultExport() {
-  return 1;
+ return 1;
 }

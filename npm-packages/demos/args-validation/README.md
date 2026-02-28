@@ -1,16 +1,16 @@
 # Argument Validation Example App
 
-This example demonstrates how to add argument validation to functions in a
-Convex app.
+   This example demonstrates how to add argument validation to functions in a
+     Convex app.
 
-The argument validator is in `convex/messages.js`. It ensures that the
-parameters to `api.messages.send` are the correct types.
+        The argument validator is in `convex/messages.js`. It ensures that the
+         parameters to `api.messages.send` are the correct types.
 
-## Running the App
+         ## Running the App
 
-Run:
+        Run:
 
-```
-npm install
-npm run dev
+     ```
+   npm install
+ npm run dev
 ```

@@ -1,19 +1,19 @@
 import { useEffect, type RefObject } from "react";
 
-export function useScrollToHash<T extends HTMLElement>(
-  hash: string,
-  targetRef: RefObject<T>,
-) {
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return;
-    }
+   export function useScrollToHash<T extends HTMLElement>(
+     hash: string,
+       targetRef: RefObject<T>,
+        ) {
+         useEffect(() => {
+          if (typeof window === "undefined") {
+           return;
+           }
 
-    if (window.location.hash === hash) {
-      targetRef.current?.scrollIntoView({
+          if (window.location.hash === hash) {
+         targetRef.current?.scrollIntoView({
         behavior: "smooth",
-        block: "start",
-      });
-    }
-  }, [hash, targetRef]);
+       block: "start",
+     });
+   }
+ }, [hash, targetRef]);
 }

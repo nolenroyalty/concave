@@ -1,9 +1,9 @@
 {
-  "$schema": "../../convex/schemas/convex.schema.json",
-  "node": {
+ "$schema": "../../convex/schemas/convex.schema.json",
+   "node": {
     "externalPackages": ["convex-ents", "convex-helpers"]
-  },
-  "codegen": {
-    "fileType": "ts"
-  }
+     },
+    "codegen": {
+   "fileType": "ts"
+ }
 }

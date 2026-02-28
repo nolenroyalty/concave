@@ -1,12 +1,12 @@
 # Vector search Example App
 
-This example demonstrates how to use Convex vector search.
+   This example demonstrates how to use Convex vector search.
 
-## Running the App
+      ## Running the App
 
-Run:
+      Run:
 
-```
-npm install
-npm run dev
+     ```
+   npm install
+ npm run dev
 ```

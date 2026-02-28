@@ -1,13 +1,13 @@
 import { defineSchema, defineTable } from "convex/server";
-import { v } from "convex/values";
+ import { v } from "convex/values";
 
-export default defineSchema({
-  messages: defineTable({
-    author: v.string(),
-    body: v.string(),
-  }),
+     export default defineSchema({
+      messages: defineTable({
+       author: v.string(),
+       body: v.string(),
+       }),
 
-  notes: defineTable({
-    text: v.string(),
-  }),
+     notes: defineTable({
+   text: v.string(),
+ }),
 });

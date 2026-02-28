@@ -1,75 +1,75 @@
 # Nuxt Minimal Starter
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+   Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
-## Setup
+       ## Setup
 
-Make sure to install dependencies:
+           Make sure to install dependencies:
 
-```bash
-# npm
-npm install
+               ```bash
+                 # npm
+                   npm install
 
-# pnpm
-pnpm install
+                      # pnpm
+                        pnpm install
 
-# yarn
-yarn install
+                            # yarn
+                             yarn install
 
-# bun
-bun install
-```
+                                # bun
+                                  bun install
+                                   ```
 
-## Development Server
+                                     ## Development Server
 
-Start the development server on `http://localhost:3000`:
+                                        Start the development server on `http://localhost:3000`:
 
-```bash
-# npm
-npm run dev
+                                          ```bash
+                                          # npm
+                                           npm run dev
 
-# pnpm
-pnpm dev
+                                             # pnpm
+                                             pnpm dev
 
-# yarn
-yarn dev
+                                              # yarn
+                                              yarn dev
 
-# bun
-bun run dev
-```
+                                               # bun
+                                               bun run dev
+                                               ```
 
-## Production
+                                              ## Production
 
-Build the application for production:
+                                              Build the application for production:
 
-```bash
-# npm
-npm run build
+                                             ```bash
+                                            # npm
+                                           npm run build
 
-# pnpm
-pnpm build
+                                          # pnpm
+                                         pnpm build
 
-# yarn
-yarn build
+                                       # yarn
+                                     yarn build
 
-# bun
-bun run build
-```
+                                   # bun
+                                  bun run build
+                                ```
 
-Locally preview production build:
+                             Locally preview production build:
 
-```bash
-# npm
-npm run preview
+                          ```bash
+                        # npm
+                      npm run preview
 
-# pnpm
-pnpm preview
+                   # pnpm
+                 pnpm preview
 
-# yarn
-yarn preview
+             # yarn
+           yarn preview
 
-# bun
-bun run preview
-```
+       # bun
+     bun run preview
+   ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

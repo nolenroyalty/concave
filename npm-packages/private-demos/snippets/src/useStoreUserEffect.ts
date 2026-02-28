@@ -1,3 +1,3 @@
 export function useStoreUserEffect() {
-  return { isAuthenticated: false, isLoading: false };
+ return { isAuthenticated: false, isLoading: false };
 }

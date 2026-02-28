@@ -1,3 +1,3 @@
 export function foo() {
-  //return window.abcd;
+ //return window.abcd;
 }

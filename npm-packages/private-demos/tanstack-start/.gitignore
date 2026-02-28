@@ -1,8 +1,8 @@
 .vercel
-.vinxi
-app.config.timestamp_*.js
-count.txt
-node_modules
-.output
+ .vinxi
+   app.config.timestamp_*.js
+    count.txt
+    node_modules
+   .output
 
 .env.local

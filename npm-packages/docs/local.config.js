@@ -1,5 +1,5 @@
 
-        module.exports = {
-        baseUrl: "/",
-        };
+ module.exports = {
+  baseUrl: "/",
+ };
         

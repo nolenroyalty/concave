@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+ import { useEffect } from "react";
 
-export default function PauseDeploymentRedirect() {
-  const router = useRouter();
+     export default function PauseDeploymentRedirect() {
+      const router = useRouter();
 
-  useEffect(() => {
-    void router.replace("/settings#pause-deployment");
-  }, [router]);
+      useEffect(() => {
+      void router.replace("/settings#pause-deployment");
+     }, [router]);
 
-  return null;
+ return null;
 }

@@ -1,11 +1,11 @@
 import { defineSchema, defineTable } from "convex/server";
-import { v } from "convex/values";
+ import { v } from "convex/values";
 
-export default defineSchema({
-  messages: defineTable({
-    author: v.string(),
-    body: v.string(),
-  }).searchIndex("search_body", {
-    searchField: "body",
-  }),
+     export default defineSchema({
+      messages: defineTable({
+      author: v.string(),
+      body: v.string(),
+     }).searchIndex("search_body", {
+   searchField: "body",
+ }),
 });

@@ -1,5 +1,5 @@
 export type ProjectEnvVarConfig = {
-  name: string;
+ name: string;
   value: string;
-  deploymentTypes: readonly ("dev" | "preview" | "prod" | "custom")[];
+ deploymentTypes: readonly ("dev" | "preview" | "prod" | "custom")[];
 };

@@ -1,18 +1,18 @@
 use std::{
-    collections::BTreeMap,
-    env,
-};
+ collections::BTreeMap,
+   env,
+     };
 
-use convex::ConvexClient;
+        use convex::ConvexClient;
 
-#[tokio::main]
-async fn main() {
-    dotenvy::from_filename(".env.local").ok();
-    dotenvy::dotenv().ok();
+          #[tokio::main]
+          async fn main() {
+          dotenvy::from_filename(".env.local").ok();
+          dotenvy::dotenv().ok();
 
-    let deployment_url = env::var("CONVEX_URL").unwrap();
+        let deployment_url = env::var("CONVEX_URL").unwrap();
 
-    let mut client = ConvexClient::new(&deployment_url).await.unwrap();
-    let result = client.query("tasks:get", BTreeMap::new()).await.unwrap();
-    println!("{result:#?}");
+     let mut client = ConvexClient::new(&deployment_url).await.unwrap();
+   let result = client.query("tasks:get", BTreeMap::new()).await.unwrap();
+ println!("{result:#?}");
 }

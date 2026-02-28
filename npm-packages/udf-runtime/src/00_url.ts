@@ -1,367 +1,367 @@
 import { throwNotImplementedMethodError } from "./helpers.js";
 import { performOp } from "udf-syscall-ffi";
-import inspect from "object-inspect";
+ import inspect from "object-inspect";
 
-type Update =
-  | {
-      hash: string | null;
+  type Update =
+   | {
+    hash: string | null;
     }
-  | {
+     | {
       hostname: string | null;
-    }
-  | {
-      href: string;
-    }
-  | {
-      port: string | null;
-    }
-  | {
-      protocol: string;
-    }
-  | {
-      pathname: string;
-    }
-  | {
-      search: string | null;
-    }
-  | {
-      searchParams: [string, string][];
-    };
-
-// Private symbols for URL to poke at the internals of URLSearchParams
-const _searchParamPairs = Symbol("_searchParamPairs");
-const _urlObjectUpdate = Symbol("_urlObjectUpdate");
-
-class URLSearchParams {
-  [_searchParamPairs]: [string, string][];
-  // Reference back to the parent URL's `#updateUrl` method
-  [_urlObjectUpdate]?: (update: { searchParams: [string, string][] }) => void;
-  constructor(
-    init?: string[][] | Record<string, string> | string | URLSearchParams,
-  ) {
-    this[_searchParamPairs] = [];
-    if (init === undefined) {
-      this[_searchParamPairs] = [];
-    } else if (typeof init === "string") {
-      const queryString = init.startsWith("?") ? init.slice(1) : init;
-      this[_searchParamPairs] = performOp(
-        "url/getUrlSearchParamPairs",
-        queryString,
-      );
-    } else if (Array.isArray(init)) {
-      for (const pair of init) {
-        if (pair.length !== 2) {
-          throw new TypeError(
-            "Failed to construct 'URLSearchParams': Failed to construct 'URLSearchParams': Sequence initializer must only contain pair elements",
-          );
+      }
+       | {
+        href: string;
         }
-        this.append(pair[0], pair[1]);
-      }
-    } else if (init instanceof URLSearchParams) {
-      init.forEach((value, key) => {
-        this.append(key, value);
-      });
-    } else {
-      for (const key in init) {
-        this.append(key, init[key]);
-      }
-    }
-  }
+         | {
+          port: string | null;
+          }
+           | {
+            protocol: string;
+            }
+             | {
+              pathname: string;
+               }
+               | {
+                search: string | null;
+                 }
+                 | {
+                  searchParams: [string, string][];
+                   };
 
-  private _updateUrl() {
-    if (this[_urlObjectUpdate] !== undefined) {
-      this[_urlObjectUpdate]({
-        searchParams: this[_searchParamPairs],
-      });
-    }
-  }
+                    // Private symbols for URL to poke at the internals of URLSearchParams
+                     const _searchParamPairs = Symbol("_searchParamPairs");
+                     const _urlObjectUpdate = Symbol("_urlObjectUpdate");
 
-  append(name: string, value: string): void {
-    this[_searchParamPairs].push([String(name), String(value)]);
-    this._updateUrl();
-  }
+                       class URLSearchParams {
+                       [_searchParamPairs]: [string, string][];
+                        // Reference back to the parent URL's `#updateUrl` method
+                        [_urlObjectUpdate]?: (update: { searchParams: [string, string][] }) => void;
+                         constructor(
+                          init?: string[][] | Record<string, string> | string | URLSearchParams,
+                          ) {
+                           this[_searchParamPairs] = [];
+                            if (init === undefined) {
+                            this[_searchParamPairs] = [];
+                             } else if (typeof init === "string") {
+                              const queryString = init.startsWith("?") ? init.slice(1) : init;
+                              this[_searchParamPairs] = performOp(
+                               "url/getUrlSearchParamPairs",
+                                queryString,
+                                );
+                                 } else if (Array.isArray(init)) {
+                                 for (const pair of init) {
+                                  if (pair.length !== 2) {
+                                   throw new TypeError(
+                                   "Failed to construct 'URLSearchParams': Failed to construct 'URLSearchParams': Sequence initializer must only contain pair elements",
+                                    );
+                                    }
+                                     this.append(pair[0], pair[1]);
+                                      }
+                                      } else if (init instanceof URLSearchParams) {
+                                       init.forEach((value, key) => {
+                                       this.append(key, value);
+                                        });
+                                         } else {
+                                         for (const key in init) {
+                                          this.append(key, init[key]);
+                                          }
+                                           }
+                                            }
 
-  delete(name: string) {
-    this[_searchParamPairs] = this[_searchParamPairs].filter(([key]) => {
-      return key !== String(name);
-    });
-    this._updateUrl();
-  }
+                                             private _updateUrl() {
+                                             if (this[_urlObjectUpdate] !== undefined) {
+                                              this[_urlObjectUpdate]({
+                                              searchParams: this[_searchParamPairs],
+                                               });
+                                                }
+                                                }
 
-  entries(): IterableIterator<[string, string]> {
-    return this[_searchParamPairs][Symbol.iterator]();
-  }
+                                                 append(name: string, value: string): void {
+                                                  this[_searchParamPairs].push([String(name), String(value)]);
+                                                  this._updateUrl();
+                                                   }
 
-  forEach(
-    callbackFn: (value: string, key: string, parent: URLSearchParams) => void,
-  ) {
-    this[_searchParamPairs].forEach(([key, value]) => {
-      callbackFn(value, key, this);
-    });
-  }
+                                                    delete(name: string) {
+                                                    this[_searchParamPairs] = this[_searchParamPairs].filter(([key]) => {
+                                                     return key !== String(name);
+                                                     });
+                                                      this._updateUrl();
+                                                      }
 
-  get(name: string): string | null {
-    return this.getAll(String(name))[0] ?? null;
-  }
+                                                       entries(): IterableIterator<[string, string]> {
+                                                        return this[_searchParamPairs][Symbol.iterator]();
+                                                        }
 
-  getAll(name: string): string[] {
-    const values: string[] = [];
-    for (const [key, value] of this[_searchParamPairs]) {
-      if (key === name) {
-        values.push(value);
-      }
-    }
-    return values;
-  }
+                                                         forEach(
+                                                          callbackFn: (value: string, key: string, parent: URLSearchParams) => void,
+                                                          ) {
+                                                           this[_searchParamPairs].forEach(([key, value]) => {
+                                                           callbackFn(value, key, this);
+                                                            });
+                                                            }
 
-  has(name: string): boolean {
-    return (
-      this[_searchParamPairs].find(([key]) => key === String(name)) !==
-      undefined
-    );
-  }
+                                                             get(name: string): string | null {
+                                                             return this.getAll(String(name))[0] ?? null;
+                                                              }
 
-  keys(): IterableIterator<string> {
-    return this[_searchParamPairs].map(([key]) => key)[Symbol.iterator]();
-  }
+                                                               getAll(name: string): string[] {
+                                                               const values: string[] = [];
+                                                               for (const [key, value] of this[_searchParamPairs]) {
+                                                                if (key === name) {
+                                                                values.push(value);
+                                                                 }
+                                                                 }
+                                                                 return values;
+                                                                  }
 
-  set(name: string, value: string) {
-    this.delete(name);
-    this.append(name, value);
-    this._updateUrl();
-  }
+                                                                   has(name: string): boolean {
+                                                                   return (
+                                                                   this[_searchParamPairs].find(([key]) => key === String(name)) !==
+                                                                    undefined
+                                                                    );
+                                                                    }
 
-  sort() {
-    this[_searchParamPairs].sort((a, b) => {
-      return a[0].localeCompare(b[0]);
-    });
-    this._updateUrl();
-  }
+                                                                     keys(): IterableIterator<string> {
+                                                                     return this[_searchParamPairs].map(([key]) => key)[Symbol.iterator]();
+                                                                      }
 
-  toString() {
-    return performOp("url/stringifyUrlSearchParams", this[_searchParamPairs]);
-  }
+                                                                      set(name: string, value: string) {
+                                                                       this.delete(name);
+                                                                       this.append(name, value);
+                                                                       this._updateUrl();
+                                                                        }
 
-  toJSON() {
-    return {};
-  }
+                                                                        sort() {
+                                                                         this[_searchParamPairs].sort((a, b) => {
+                                                                         return a[0].localeCompare(b[0]);
+                                                                         });
+                                                                         this._updateUrl();
+                                                                          }
 
-  [Symbol.iterator](): IterableIterator<[string, string]> {
-    return this.entries();
-  }
+                                                                          toString() {
+                                                                          return performOp("url/stringifyUrlSearchParams", this[_searchParamPairs]);
+                                                                           }
 
-  values(): IterableIterator<string> {
-    return this[_searchParamPairs].map(([, value]) => value)[Symbol.iterator]();
-  }
+                                                                           toJSON() {
+                                                                           return {};
+                                                                           }
 
-  get [Symbol.toStringTag]() {
-    return "URLSearchParams";
-  }
+                                                                            [Symbol.iterator](): IterableIterator<[string, string]> {
+                                                                            return this.entries();
+                                                                            }
 
-  inspect() {
-    let inner = "";
-    if (this[_searchParamPairs].length !== 0) {
-      inner =
-        " " +
-        this[_searchParamPairs]
-          .map(([k, v]) => `${inspect(k)} => ${inspect(v)}`)
-          .join(", ") +
-        " ";
-    }
-    return `${this.constructor.name} {${inner}}`;
-  }
-}
+                                                                             values(): IterableIterator<string> {
+                                                                             return this[_searchParamPairs].map(([, value]) => value)[Symbol.iterator]();
+                                                                             }
 
-type UrlInfo = {
-  scheme: string;
-  hash: string;
-  host: string;
-  hostname: string;
-  pathname: string;
-  port: string;
-  search: string;
-  href: string;
-  username: string;
-  password: string;
-};
+                                                                             get [Symbol.toStringTag]() {
+                                                                              return "URLSearchParams";
+                                                                              }
 
-class URL {
-  #urlInfo: UrlInfo;
-  #searchParams: URLSearchParams;
+                                                                              inspect() {
+                                                                              let inner = "";
+                                                                              if (this[_searchParamPairs].length !== 0) {
+                                                                              inner =
+                                                                              " " +
+                                                                               this[_searchParamPairs]
+                                                                               .map(([k, v]) => `${inspect(k)} => ${inspect(v)}`)
+                                                                               .join(", ") +
+                                                                               " ";
+                                                                               }
+                                                                               return `${this.constructor.name} {${inner}}`;
+                                                                               }
+                                                                               }
 
-  constructor(url: string | URL, base?: string | URL) {
-    let baseHref: string | null = null;
-    if (base !== undefined) {
-      baseHref = typeof base === "string" ? base : base.href;
-    }
-    if (typeof url === "string") {
-      const urlInfo: UrlInfo = performOp("url/getUrlInfo", url, baseHref);
-      this.#urlInfo = urlInfo;
-    } else {
-      this.#urlInfo = { ...url.#urlInfo };
-    }
-    this.#searchParams = new URLSearchParams(this.#urlInfo.search ?? "");
-    this.#searchParams[_urlObjectUpdate] = this.#updateUrl.bind(this);
-  }
+                                                                               type UrlInfo = {
+                                                                               scheme: string;
+                                                                               hash: string;
+                                                                               host: string;
+                                                                               hostname: string;
+                                                                               pathname: string;
+                                                                               port: string;
+                                                                               search: string;
+                                                                               href: string;
+                                                                                username: string;
+                                                                               password: string;
+                                                                               };
 
-  get hash() {
-    return this.#urlInfo.hash !== "" ? `#${this.#urlInfo.hash}` : "";
-  }
+                                                                               class URL {
+                                                                               #urlInfo: UrlInfo;
+                                                                               #searchParams: URLSearchParams;
 
-  set hash(_hash: string) {
-    let newHash: string | null = _hash.startsWith("#") ? _hash.slice(1) : _hash;
-    newHash = newHash === "" ? null : newHash;
-    this.#updateUrl({
-      hash: newHash,
-    });
-  }
+                                                                               constructor(url: string | URL, base?: string | URL) {
+                                                                               let baseHref: string | null = null;
+                                                                               if (base !== undefined) {
+                                                                               baseHref = typeof base === "string" ? base : base.href;
+                                                                               }
+                                                                               if (typeof url === "string") {
+                                                                               const urlInfo: UrlInfo = performOp("url/getUrlInfo", url, baseHref);
+                                                                               this.#urlInfo = urlInfo;
+                                                                               } else {
+                                                                               this.#urlInfo = { ...url.#urlInfo };
+                                                                               }
+                                                                              this.#searchParams = new URLSearchParams(this.#urlInfo.search ?? "");
+                                                                              this.#searchParams[_urlObjectUpdate] = this.#updateUrl.bind(this);
+                                                                              }
 
-  get host() {
-    return this.#urlInfo.host;
-  }
+                                                                              get hash() {
+                                                                              return this.#urlInfo.hash !== "" ? `#${this.#urlInfo.hash}` : "";
+                                                                              }
 
-  set host(_host: string) {
-    throwNotImplementedMethodError("set host", "URL");
-  }
+                                                                             set hash(_hash: string) {
+                                                                             let newHash: string | null = _hash.startsWith("#") ? _hash.slice(1) : _hash;
+                                                                             newHash = newHash === "" ? null : newHash;
+                                                                             this.#updateUrl({
+                                                                             hash: newHash,
+                                                                             });
+                                                                            }
 
-  get hostname() {
-    return this.#urlInfo.hostname;
-  }
+                                                                            get host() {
+                                                                            return this.#urlInfo.host;
+                                                                           }
 
-  set hostname(_hostname: string) {
-    this.#updateUrl({
-      hostname: _hostname === "" ? null : _hostname,
-    });
-  }
+                                                                           set host(_host: string) {
+                                                                           throwNotImplementedMethodError("set host", "URL");
+                                                                           }
 
-  get href() {
-    return this.#urlInfo.href;
-  }
+                                                                          get hostname() {
+                                                                          return this.#urlInfo.hostname;
+                                                                          }
 
-  set href(_href: string) {
-    this.#updateUrl({
-      href: _href,
-    });
-  }
+                                                                         set hostname(_hostname: string) {
+                                                                         this.#updateUrl({
+                                                                         hostname: _hostname === "" ? null : _hostname,
+                                                                        });
+                                                                        }
 
-  get origin() {
-    switch (this.#urlInfo.scheme) {
-      case "ftp":
-      case "http":
-      case "https":
-      case "ws":
-      case "wss":
-        return `${this.#urlInfo.scheme}://${this.host}`;
-      default:
-        return "null";
-    }
-  }
+                                                                       get href() {
+                                                                       return this.#urlInfo.href;
+                                                                       }
 
-  get password() {
-    return this.#urlInfo.password;
-  }
+                                                                      set href(_href: string) {
+                                                                      this.#updateUrl({
+                                                                     href: _href,
+                                                                     });
+                                                                     }
 
-  set password(_password: string) {
-    throwNotImplementedMethodError("set password", "URL");
-  }
+                                                                    get origin() {
+                                                                    switch (this.#urlInfo.scheme) {
+                                                                   case "ftp":
+                                                                   case "http":
+                                                                   case "https":
+                                                                  case "ws":
+                                                                  case "wss":
+                                                                 return `${this.#urlInfo.scheme}://${this.host}`;
+                                                                 default:
+                                                                 return "null";
+                                                                }
+                                                                }
 
-  get pathname() {
-    return this.#urlInfo.pathname;
-  }
+                                                               get password() {
+                                                               return this.#urlInfo.password;
+                                                              }
 
-  set pathname(_pathname: string) {
-    this.#updateUrl({
-      pathname: _pathname,
-    });
-  }
+                                                             set password(_password: string) {
+                                                             throwNotImplementedMethodError("set password", "URL");
+                                                            }
 
-  get port() {
-    return this.#urlInfo.port?.toString() ?? "";
-  }
+                                                            get pathname() {
+                                                           return this.#urlInfo.pathname;
+                                                           }
 
-  set port(_port: string) {
-    this.#updateUrl({
-      port: _port,
-    });
-  }
+                                                          set pathname(_pathname: string) {
+                                                         this.#updateUrl({
+                                                         pathname: _pathname,
+                                                        });
+                                                        }
 
-  get protocol() {
-    return this.#urlInfo.scheme.toString() + ":";
-  }
+                                                       get port() {
+                                                      return this.#urlInfo.port?.toString() ?? "";
+                                                      }
 
-  set protocol(_protocol: string) {
-    this.#updateUrl({
-      protocol: _protocol,
-    });
-  }
+                                                     set port(_port: string) {
+                                                    this.#updateUrl({
+                                                    port: _port,
+                                                   });
+                                                   }
 
-  get search() {
-    return this.#urlInfo.search === "" ? "" : `?${this.#urlInfo.search}`;
-  }
+                                                  get protocol() {
+                                                 return this.#urlInfo.scheme.toString() + ":";
+                                                 }
 
-  set search(_search: string) {
-    let newSearch: string | null = _search.startsWith("?")
-      ? _search.slice(1)
-      : _search;
-    newSearch = newSearch === "" ? null : newSearch;
-    this.#updateUrl({
-      search: newSearch,
-    });
-  }
+                                                set protocol(_protocol: string) {
+                                               this.#updateUrl({
+                                              protocol: _protocol,
+                                              });
+                                             }
 
-  get searchParams() {
-    return this.#searchParams;
-  }
+                                            get search() {
+                                            return this.#urlInfo.search === "" ? "" : `?${this.#urlInfo.search}`;
+                                           }
 
-  get username() {
-    return this.#urlInfo.username;
-  }
+                                          set search(_search: string) {
+                                         let newSearch: string | null = _search.startsWith("?")
+                                         ? _search.slice(1)
+                                        : _search;
+                                       newSearch = newSearch === "" ? null : newSearch;
+                                       this.#updateUrl({
+                                      search: newSearch,
+                                      });
+                                     }
 
-  set username(_username: string) {
-    throwNotImplementedMethodError("set username", "URL");
-  }
+                                    get searchParams() {
+                                   return this.#searchParams;
+                                   }
 
-  toString() {
-    return this.href;
-  }
+                                 get username() {
+                                 return this.#urlInfo.username;
+                                }
 
-  toJSON() {
-    return this.href;
-  }
+                               set username(_username: string) {
+                              throwNotImplementedMethodError("set username", "URL");
+                              }
 
-  #updateUrl(update: Update) {
-    this.#urlInfo = performOp("url/updateUrlInfo", this.href, update);
-    // Mutate the existing searchParams object
-    const searchPairs = performOp(
-      "url/getUrlSearchParamPairs",
-      this.#urlInfo.search,
-    );
-    this.#searchParams[_searchParamPairs] = searchPairs;
-  }
+                            toString() {
+                            return this.href;
+                           }
 
-  get [Symbol.toStringTag]() {
-    return "URL";
-  }
+                          toJSON() {
+                         return this.href;
+                        }
 
-  inspect() {
-    const object = {
-      href: this.href,
-      origin: this.origin,
-      protocol: this.protocol,
-      username: this.username,
-      password: this.password,
-      host: this.host,
-      hostname: this.hostname,
-      port: this.port,
-      pathname: this.pathname,
+                       #updateUrl(update: Update) {
+                       this.#urlInfo = performOp("url/updateUrlInfo", this.href, update);
+                      // Mutate the existing searchParams object
+                     const searchPairs = performOp(
+                     "url/getUrlSearchParamPairs",
+                    this.#urlInfo.search,
+                   );
+                   this.#searchParams[_searchParamPairs] = searchPairs;
+                  }
+
+                 get [Symbol.toStringTag]() {
+                return "URL";
+               }
+
+              inspect() {
+             const object = {
+            href: this.href,
+            origin: this.origin,
+           protocol: this.protocol,
+          username: this.username,
+          password: this.password,
+         host: this.host,
+        hostname: this.hostname,
+        port: this.port,
+       pathname: this.pathname,
       hash: this.hash,
       search: this.search,
-    };
+     };
     return `${this.constructor.name} ${inspect(object)}`;
-  }
-}
+    }
+   }
 
-export const setupURL = (global: any) => {
-  global.URL = URL;
-  global.URLSearchParams = URLSearchParams;
+  export const setupURL = (global: any) => {
+ global.URL = URL;
+global.URLSearchParams = URLSearchParams;
 };

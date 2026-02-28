@@ -1,4 +1,4 @@
 mod metrics;
-#[cfg(test)]
-mod tests;
+ #[cfg(test)]
+ mod tests;
 pub mod worker;

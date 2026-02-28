@@ -1,6 +1,6 @@
 export const throwString = {
-  isAction: true,
-  invokeAction: async () => {
-    throw "hello world";
-  },
+ isAction: true,
+   invokeAction: async () => {
+   throw "hello world";
+ },
 };

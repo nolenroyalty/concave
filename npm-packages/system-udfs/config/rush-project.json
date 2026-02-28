@@ -1,8 +1,8 @@
 {
-  "operationSettings": [
-    {
-      "operationName": "build",
-      "outputFolderNames": ["dist"]
-    }
-  ]
+ "operationSettings": [
+   {
+    "operationName": "build",
+    "outputFolderNames": ["dist"]
+   }
+ ]
 }

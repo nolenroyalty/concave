@@ -1,9 +1,9 @@
 import { Doc } from "../../_generated/dataModel";
-import { queryPrivateSystem } from "../secretSystemTables";
+ import { queryPrivateSystem } from "../secretSystemTables";
 
-export default queryPrivateSystem({
-  args: {},
-  handler: async ({ db }): Promise<Doc<"_auth">[]> => {
-    return await db.query("_auth").order("asc").collect();
-  },
+    export default queryPrivateSystem({
+     args: {},
+    handler: async ({ db }): Promise<Doc<"_auth">[]> => {
+   return await db.query("_auth").order("asc").collect();
+ },
 });

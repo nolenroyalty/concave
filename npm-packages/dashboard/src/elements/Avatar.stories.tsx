@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
-import { Avatar } from "./Avatar";
+ import { Avatar } from "./Avatar";
 
-const meta = { component: Avatar } satisfies Meta<typeof Avatar>;
+     const meta = { component: Avatar } satisfies Meta<typeof Avatar>;
 
-export default meta;
-type Story = StoryObj<typeof Avatar>;
+       export default meta;
+       type Story = StoryObj<typeof Avatar>;
 
-export const Initials: Story = {
-  args: {
-    name: "Zepp Williams",
-  },
+      export const Initials: Story = {
+     args: {
+   name: "Zepp Williams",
+ },
 };

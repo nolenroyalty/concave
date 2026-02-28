@@ -1,14 +1,14 @@
 import { CrossCircledIcon } from "@radix-ui/react-icons";
-import { LogOutcome } from "@common/lib/useLogs";
+ import { LogOutcome } from "@common/lib/useLogs";
 
-export function LogStatusLine({ outcome }: { outcome: LogOutcome }) {
-  return (
-    <p className="flex items-center gap-1">
-      {(outcome.status === "failure" ||
+     export function LogStatusLine({ outcome }: { outcome: LogOutcome }) {
+      return (
+       <p className="flex items-center gap-1">
+        {(outcome.status === "failure" ||
         (outcome.statusCode && Number(outcome.statusCode) >= 400)) && (
-        <CrossCircledIcon />
+       <CrossCircledIcon />
       )}
-      {outcome.statusCode !== null ? outcome.statusCode : outcome.status}
-    </p>
-  );
+     {outcome.statusCode !== null ? outcome.statusCode : outcome.status}
+   </p>
+ );
 }

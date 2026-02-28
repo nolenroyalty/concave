@@ -1,5 +1,5 @@
 use keybroker::InstanceSecret;
 
-fn main() {
-    println!("{}", InstanceSecret::random());
+  fn main() {
+ println!("{}", InstanceSecret::random());
 }

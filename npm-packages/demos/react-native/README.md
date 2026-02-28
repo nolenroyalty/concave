@@ -1,26 +1,26 @@
 # React Native Example App
 
-This example demonstrates how to use Convex with React Native.
+   This example demonstrates how to use Convex with React Native.
 
-This app is a messages app built using [Expo](https://expo.dev/) following the
-[React Native Convex quickstart](https://docs.convex.dev/quickstart/react-native).
+       This app is a messages app built using [Expo](https://expo.dev/) following the
+         [React Native Convex quickstart](https://docs.convex.dev/quickstart/react-native).
 
-## Running the App
+            ## Running the App
 
-Install dependencies:
+              Install dependencies:
 
-```
-npm install
-```
+               ```
+               npm install
+               ```
 
-Set up a Convex dev deployment:
+               Set up a Convex dev deployment:
 
-```
-npx convex dev
-```
+             ```
+            npx convex dev
+          ```
 
-Start the app:
+       Start the app:
 
-```
-npm start
+   ```
+ npm start
 ```

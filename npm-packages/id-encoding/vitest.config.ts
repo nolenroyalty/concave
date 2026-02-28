@@ -1,11 +1,11 @@
 import { defineConfig } from "vitest/config";
 
-export default defineConfig({
-  test: {
-    alias: {
+   export default defineConfig({
+     test: {
+      alias: {
       "@jest/globals": "vitest",
-    },
-    isolate: true,
-    watch: false,
-  },
+      },
+     isolate: true,
+   watch: false,
+ },
 });

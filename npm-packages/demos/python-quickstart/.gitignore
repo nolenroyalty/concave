@@ -1,4 +1,4 @@
 node_modules
-__pycache__
-.env.local
+ __pycache__
+ .env.local
 venv

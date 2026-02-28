@@ -1,8 +1,8 @@
 mod expression;
-mod query;
-pub use self::expression::JsonExpression;
+ mod query;
+   pub use self::expression::JsonExpression;
 
-#[cfg(test)]
-mod tests;
+    #[cfg(test)]
+   mod tests;
 
 pub use json_trait::*;
